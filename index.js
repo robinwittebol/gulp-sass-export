@@ -1,5 +1,6 @@
 var through = require('through2');
-var gutil = require('gulp-util');
+var Vinyl = require('vinyl');
+var notify = require("gulp-notify");
 
 var exporter = require('sass-export').buffer;
 
@@ -16,9 +17,15 @@ module.exports = function (userOptions) {
   // Create a stream to take in images
   var bufferList = [];
 
+  var Error = notify.withReporter(function (options, callback) {
+    console.log("Title:", options.title);
+    console.log("Message:", options.message);
+    callback();
+  });
+
   var onData = function (file, encoding, cb) {
     if (file.isStream()) {
-      this.emit('error', new gutil.PluginError(PLUGIN_NAME, 'Streams are not supported!'));
+      this.emit("error", new Error("Streams are not supported!: Error message!"));
       return cb();
     }
 
@@ -38,14 +45,16 @@ module.exports = function (userOptions) {
     exporter(bufferList, options).then((result) => {
       let content = new Buffer(JSON.stringify(result, null, 2));
 
-      let file = new gutil.File({
+      let file = new Vinyl({
         path: options.fileName,
         contents: content
       });
 
       cb(null, file);
     }).catch((err) => {
-      this.emit('error', new gutil.PluginError(PLUGIN_NAME, err.message));
+      //this.emit('error', new gutil.PluginError(PLUGIN_NAME, err.message));
+      this.emit("error", new Error(err.message));
+
       return cb();
     });
   };

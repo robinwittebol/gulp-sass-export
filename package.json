@@ -1,6 +1,6 @@
 {
   "name": "gulp-sass-export",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "gulp plugin for sass-export",
   "main": "index.js",
   "files": [
@@ -18,18 +18,19 @@
     "Node Sass"
   ],
   "author": {
-    "name": "Carlos I Mercado",
+    "name": "Pepijn Nichting | fork from (Carlos I Mercado)",
     "email": "civan.cim@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/plentycode/gulp-sass-export.git"
+    "url": "https://github.com/pepijnnichting/gulp-sass-export.git"
   },
   "dependencies": {
-    "sass-export": "^0.1.6",
-    "through2": "^2.0.3"
+    "gulp-notify": "^4.0.0",
+    "sass-export": "^2.1.0",
+    "through2": "^4.0.2",
+    "vinyl": "^2.2.1"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
